@@ -1,0 +1,8 @@
+Package: sc-utility-jar
+Version: 0.0.1
+Architecture: all
+Essential: no
+Section: development
+Priority: optional
+Maintainer: Brandon Gomez
+Description: Brandon's Utility Library
