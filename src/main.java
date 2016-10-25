@@ -101,14 +101,11 @@ public class main {
 
   public void psuedoRandomTest() {
     RandomGenerator random = new RandomGenerator();
-    int x = 0;
 
     random.setMaximum(100);
     random.setMinimum(0);
-    while(x<100) {
-      random.generateNumber();
-      x++;
-    }
+    
+    random.generateXNumbers(100);
 
     Color white = Color.White;
     Color red = Color.Light_Red;

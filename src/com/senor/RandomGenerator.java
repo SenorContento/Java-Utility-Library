@@ -44,6 +44,16 @@ public class RandomGenerator { //Had to change from Random because of java.util.
     return this.number;
   }
 
+  public ArrayList<Double> generateXNumbers(int x) {
+    int y = 0;
+
+    while(y<x) {
+      this.generateNumber();
+      y++;
+    }
+    return this.history;
+  }
+
   public ArrayList<Double> getHistory() {
     return this.history;
   }
