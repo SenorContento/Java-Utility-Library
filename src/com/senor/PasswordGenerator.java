@@ -12,7 +12,7 @@ public class PasswordGenerator {
   boolean lowercase = true;
   
   int digits;
-  int x = 0;
+  int count = 0; //Temporary, will remove
 
   ArrayList<String> history = new ArrayList<String>();
   ArrayList<String> historyRange = new ArrayList<String>();
@@ -20,6 +20,14 @@ public class PasswordGenerator {
   ArrayList<Double> rawHistoryRange = new ArrayList<Double>();
 
   RandomGenerator random;
+
+  String password; //Change to Characters
+
+  char[] symbolsArray = {'!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`'}; //This is to make randomly picking symbols easier.
+
+  char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'}; //Doesn't matter case as I will choose it during generation time.
+
+  //Should I make an extended alphabet array?
 
   public PasswordGenerator() {
     //Default to 64 for Very Good Security
@@ -48,14 +56,6 @@ public class PasswordGenerator {
     this.lowercase = lowercase;
   }
 
-  /*
-  boolean numbers = true;
-  boolean symbols = true;
-  boolean uppercase = true;
-  boolean lowercase = true;
-  
-  int digits;
-  */
   public void setNumbers(boolean numbers) {
     this.numbers = numbers;
   }
@@ -97,14 +97,63 @@ public class PasswordGenerator {
   }
 
   public String generatePassword() {
-    x++;
-    this.random = new RandomGenerator();
+    count++;
+    double generatedNumber;
+    this.password = "";
+    this.random = new RandomGenerator(0,100);
+    RandomGenerator numeral = new RandomGenerator(0,9);
+    RandomGenerator chooseSymbol = new RandomGenerator(0,this.symbolsArray.length-1);
+    RandomGenerator chooseLetter = new RandomGenerator(0,this.alphabet.length-1);
 
-    //Password Here
+    //I seriously need to find a better way to generate passwords. This can cause a headache!
+    for(int x=0; x < this.digits; x++) {
+      generatedNumber = this.random.generateNumber();
+      if(generatedNumber <= 25) { //Numbers
+        if(this.numbers) {
+          this.password += (int) numeral.generateNumber();
+        } else if(this.symbols) {
+            this.password += this.symbolsArray[(int) chooseSymbol.generateNumber()];
+        } else if(this.uppercase) {
+            this.password += Character.toUpperCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+        } else if(this.lowercase) {
+            this.password += Character.toLowerCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+        }
+      } else if(generatedNumber > 25 && generatedNumber <= 50) { //Symbols
+          if(this.symbols) {
+            this.password += this.symbolsArray[(int) chooseSymbol.generateNumber()];          
+          } else if(this.numbers) {
+              this.password += (int) numeral.generateNumber();
+          } else if(this.uppercase) {
+              this.password += Character.toUpperCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          } else if(this.lowercase) {
+              this.password += Character.toLowerCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          }
+      } else if(generatedNumber > 50 && generatedNumber < 75) { //Uppercase
+          if(this.uppercase) {
+            this.password += Character.toUpperCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          } else if(this.symbols) {
+              this.password += this.symbolsArray[(int) chooseSymbol.generateNumber()];
+          } else if(this.numbers) {
+              this.password += (int) numeral.generateNumber();
+          } else if(this.lowercase) {
+              this.password += Character.toLowerCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          }
+      } else if(generatedNumber >= 75) { //Lowercase
+          if(this.lowercase) {
+            this.password += Character.toLowerCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          } else if(this.numbers) {
+              this.password += (int) numeral.generateNumber();
+          } else if(this.uppercase) {
+              this.password += Character.toUpperCase(this.alphabet[(int) chooseLetter.generateNumber()]);
+          } else if(this.symbols) {
+              this.password += this.symbolsArray[(int) chooseSymbol.generateNumber()];
+          }
+      }
+    }
 
     this.rawHistory.add(this.random.getRaw());
-    this.history.add("Password: " + this.x);
-    return "Password: " + this.x;
+    this.history.add(this.password);
+    return this.password;
   }
 
   public ArrayList<String> generateXPasswords(int x) {

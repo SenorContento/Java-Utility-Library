@@ -6,6 +6,7 @@ import java.io.IOException;
 public class main {
   public static void main(String[] args) {
     Color none = Color.None;
+    Color cyan = Color.Light_Cyan;
 
     main main = new main();
 
@@ -28,6 +29,9 @@ public class main {
     System.out.println(none.getANSI());
 
     main.passwordGenerator();
+
+    System.out.println();
+    System.out.println(cyan.getANSI() + "Hope you have enjoyed my demo!");
   }
 
   public void colorTest() {
@@ -233,6 +237,11 @@ public class main {
 
     Color white = Color.White;
     Color green = Color.Light_Green;
+    Color red = Color.Light_Red;
+    Color blue = Color.Blue;
+    Color yellow = Color.Yellow;
+
+    passwordGenerator.setDigits(64);
 
     //I could change color depending on if good choice or not...
     System.out.println(white.getANSI() + "Numbers: " + green.getANSI() + passwordGenerator.getNumbers());
@@ -247,5 +256,43 @@ public class main {
 
     passwordGenerator.generateXPasswords(99);
     System.out.println(white.getANSI() + "100 Passwords: " + green.getANSI() + passwordGenerator.getHistory());
+
+    System.out.println();
+
+    //passwordGenerator.setDigits(5);
+
+    passwordGenerator.setNumbers(false);
+
+    System.out.println(white.getANSI() + "Numbers: " + red.getANSI() + passwordGenerator.getNumbers());
+    System.out.println(white.getANSI() + "Symbols: " + red.getANSI() + passwordGenerator.getSymbols());
+    System.out.println(white.getANSI() + "Uppercase: " + red.getANSI() + passwordGenerator.getUppercase());
+    System.out.println(white.getANSI() + "Lowercase: " + red.getANSI() + passwordGenerator.getLowercase());
+    System.out.println(white.getANSI() + "Digits: " + red.getANSI() + passwordGenerator.getDigits());
+
+    System.out.println(white.getANSI() + "Password: " + red.getANSI() + passwordGenerator.generatePassword());
+
+    System.out.println();
+
+    passwordGenerator.setSymbols(false);
+
+    System.out.println(white.getANSI() + "Numbers: " + yellow.getANSI() + passwordGenerator.getNumbers());
+    System.out.println(white.getANSI() + "Symbols: " + yellow.getANSI() + passwordGenerator.getSymbols());
+    System.out.println(white.getANSI() + "Uppercase: " + yellow.getANSI() + passwordGenerator.getUppercase());
+    System.out.println(white.getANSI() + "Lowercase: " + yellow.getANSI() + passwordGenerator.getLowercase());
+    System.out.println(white.getANSI() + "Digits: " + yellow.getANSI() + passwordGenerator.getDigits());
+
+    System.out.println(white.getANSI() + "Password: " + yellow.getANSI() + passwordGenerator.generatePassword());
+
+    System.out.println();
+
+    passwordGenerator.setUppercase(false);
+
+    System.out.println(white.getANSI() + "Numbers: " + blue.getANSI() + passwordGenerator.getNumbers());
+    System.out.println(white.getANSI() + "Symbols: " + blue.getANSI() + passwordGenerator.getSymbols());
+    System.out.println(white.getANSI() + "Uppercase: " + blue.getANSI() + passwordGenerator.getUppercase());
+    System.out.println(white.getANSI() + "Lowercase: " + blue.getANSI() + passwordGenerator.getLowercase());
+    System.out.println(white.getANSI() + "Digits: " + blue.getANSI() + passwordGenerator.getDigits());
+
+    System.out.println(white.getANSI() + "Password: " + blue.getANSI() + passwordGenerator.generatePassword());
   }
 }
