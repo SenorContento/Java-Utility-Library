@@ -25,6 +25,9 @@ public class main {
     System.out.println(none.getANSI());
 
     main.pngMorse();
+    System.out.println(none.getANSI());
+
+    main.passwordGenerator();
   }
 
   public void colorTest() {
@@ -221,6 +224,28 @@ public class main {
   }
 
   public void pngMorse() {
-    
+    PNGMorse pngMorse = new PNGMorse();
+    //pngMorse
+  }
+
+  public void passwordGenerator() {
+    PasswordGenerator passwordGenerator = new PasswordGenerator();
+
+    Color white = Color.White;
+    Color green = Color.Light_Green;
+
+    //I could change color depending on if good choice or not...
+    System.out.println(white.getANSI() + "Numbers: " + green.getANSI() + passwordGenerator.getNumbers());
+    System.out.println(white.getANSI() + "Symbols: " + green.getANSI() + passwordGenerator.getSymbols());
+    System.out.println(white.getANSI() + "Uppercase: " + green.getANSI() + passwordGenerator.getUppercase());
+    System.out.println(white.getANSI() + "Lowercase: " + green.getANSI() + passwordGenerator.getLowercase());
+    System.out.println(white.getANSI() + "Digits: " + green.getANSI() + passwordGenerator.getDigits());
+
+    System.out.println();
+
+    System.out.println(white.getANSI() + "Password: " + green.getANSI() + passwordGenerator.generatePassword());
+
+    passwordGenerator.generateXPasswords(99);
+    System.out.println(white.getANSI() + "100 Passwords: " + green.getANSI() + passwordGenerator.getHistory());
   }
 }
