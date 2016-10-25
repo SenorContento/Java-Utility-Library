@@ -1,5 +1,7 @@
 import com.senor.*;
 import com.senor.exception.*;
+import java.util.*;
+import java.io.IOException;
 
 public class main {
   public static void main(String[] args) {
@@ -98,7 +100,7 @@ public class main {
   }
 
   public void psuedoRandomTest() {
-    Random random = new Random();
+    com.senor.Random random = new com.senor.Random();
     int x = 0;
 
     random.setMaximum(100);
@@ -191,7 +193,34 @@ public class main {
   }
   
   public void unscrambleWords() {
-    
+    //This: eatnah,eydnsy,emcarl,dnistu,anjene,koioces,iangrvii,ifolmang,nmeniabj,llirke
+    //Should Turn into This: athena,sydney,marcel,dustin,jeanne,cookies,virginia,flamingo,benjamin,killer
+
+    Color white = Color.White;
+    Color red = Color.Light_Red;
+    Color green = Color.Light_Green;
+    Color blue = Color.Light_Blue;
+
+    ArrayList<String> scrambled = new ArrayList<String>();;
+    scrambled.add("eatnah");
+    scrambled.add("eydnsy");
+    scrambled.add("emcarl");
+    scrambled.add("dnistu");
+    scrambled.add("anjene");
+    scrambled.add("koioces");
+    scrambled.add("iangrvii");
+    scrambled.add("ifolmang");
+    scrambled.add("nmeniabj");
+    scrambled.add("llirke");
+
+    try {
+      Unscrambler unscrambled = new Unscrambler("wordlist.txt", scrambled);
+      System.out.println(white.getANSI() + "Scrambled Words: " + red.getANSI() + unscrambled.getWords());
+      System.out.println(white.getANSI() + "File: " + blue.getANSI() + unscrambled.getFile());
+      System.out.println(white.getANSI() + "Unscrambled Words: " + green.getANSI() + unscrambled.unscrambleWords());
+    } catch(IOException e) {
+      System.out.println(red.getANSI() + e);
+    }
   }
 
   public void pngMorse() {

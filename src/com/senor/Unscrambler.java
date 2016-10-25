@@ -1,3 +1,10 @@
+package com.senor;
+
+import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 public class Unscrambler {
   ArrayList<String> words = new ArrayList<String>();
   ArrayList<String> unscrambled = new ArrayList<String>();
@@ -7,30 +14,58 @@ public class Unscrambler {
     //Do Nothing!
   }
 
-  public Unscrambler(String[] words) {
+  public Unscrambler(ArrayList<String> words) {
     this.words = words;
   }
 
-  public void setWords(String[] words) {
+  public Unscrambler(String file, ArrayList<String> words) {
+    this.file = file;
     this.words = words;
+  }
+
+  public void setWords(ArrayList<String> words) {
+    this.words = words;
+  }
+
+  public ArrayList<String> getWords() {
+    return this.words;
   }
 
   public void addWords(String word) {
-    //this.words
+    this.words.add(word);
+  }
+
+  public void removeWord(int position) {
+    this.words.remove(position);
+  }
+
+  public void removeWord(String word) {
+    for(int x = 0; x < this.words.size(); x++) //This is to remove all occurences of the same word from the list
+      this.words.remove(word);
   }
 
   public void setFile(String file) {
     this.file = file;
   }
 
+  public String getFile() {
+    return this.file;
+  }
+
+  public ArrayList<String> getUnscrambledWords() {
+    return this.unscrambled;
+  }
+
   public ArrayList<String> unscrambleWords() throws IOException {
-      for(int x=0; x < wordCount; x++) { //Pick a word from the scrambled words pile
+      this.unscrambled.clear();
+
+      for(int x=0; x < this.words.size(); x++) { //Pick a word from the scrambled words pile
         for(String line : Files.readAllLines(Paths.get(this.file))) { //Pick a line from the wordlist
-          if(line.length() == word[x].length()) {
+          if(line.length() == this.words.get(x).length()) {
             boolean match = true;
-            for(int y=0; y < word[x].length(); y++) { //Iterate through characters in word in wordlist
-              int count = word[x].length() - word[x].replace(word[x].substring(y,y+1), "").length();
-              int count2 = line.length() - line.replace(word[x].substring(y,y+1), "").length();
+            for(int y=0; y < this.words.get(x).length(); y++) { //Iterate through characters in word in wordlist
+              int count = this.words.get(x).length() - this.words.get(x).replace(this.words.get(x).substring(y,y+1), "").length();
+              int count2 = line.length() - line.replace(this.words.get(x).substring(y,y+1), "").length();
               //Both counts need to match for every character to be valid!!!
               if(count != count2) {
                 match = false;
@@ -38,17 +73,13 @@ public class Unscrambler {
               }
 
               if(y == line.length() - 1 && match == true) {
-                if(x != wordCount - 1) {
-                  System.out.print(line + ",");
-                } else {
-                  System.out.println(line);
-                }
+                this.unscrambled.add(line);
               }
             }
           }
         }
       }
 
-    return unscrambled;
+    return this.unscrambled;
   }
 }
