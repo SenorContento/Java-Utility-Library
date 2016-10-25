@@ -100,7 +100,7 @@ public class main {
   }
 
   public void psuedoRandomTest() {
-    com.senor.Random random = new com.senor.Random();
+    RandomGenerator random = new RandomGenerator();
     int x = 0;
 
     random.setMaximum(100);
@@ -214,7 +214,7 @@ public class main {
     scrambled.add("llirke");
 
     try {
-      Unscrambler unscrambled = new Unscrambler("wordlist.txt", scrambled);
+      Unscrambler unscrambled = new Unscrambler("wordlist.txt", scrambled); //I am using the wordlist from Hack This Site. I have to find out copyright or make my own.
       System.out.println(white.getANSI() + "Scrambled Words: " + red.getANSI() + unscrambled.getWords());
       System.out.println(white.getANSI() + "File: " + blue.getANSI() + unscrambled.getFile());
       System.out.println(white.getANSI() + "Unscrambled Words: " + green.getANSI() + unscrambled.unscrambleWords());

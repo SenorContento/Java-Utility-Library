@@ -3,7 +3,7 @@ package com.senor;
 import java.util.ArrayList;
 import com.senor.exception.*;
 
-public class Random {
+public class RandomGenerator { //Had to change from Random because of java.util.Random(); Could have still worked though. Just mess with the imports.
   double minimum, maximum, number, raw;
   ArrayList<Double> history = new ArrayList<Double>();
   ArrayList<Double> historyRange = new ArrayList<Double>();
@@ -11,10 +11,10 @@ public class Random {
   ArrayList<Double> rawHistoryRange = new ArrayList<Double>();
 
 
-  public Random() {
+  public RandomGenerator() {
     //Do Nothing!
   }
-  public Random(double minimum, double maximum) {
+  public RandomGenerator(double minimum, double maximum) {
     this.minimum = minimum;
     this.maximum = maximum;
   }
