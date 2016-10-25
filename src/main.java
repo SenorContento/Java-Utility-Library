@@ -17,6 +17,12 @@ public class main {
     System.out.println(none.getANSI());
 
     main.asciiShift();
+    System.out.println(none.getANSI());
+
+    main.unscrambleWords();
+    System.out.println(none.getANSI());
+
+    main.pngMorse();
   }
 
   public void colorTest() {
@@ -169,16 +175,26 @@ public class main {
 
     try {
       System.out.println(white.getANSI() + "String: " + blue.getANSI() + shift.getString());
+      System.out.println(white.getANSI() + "Shift: " + blue.getANSI() + shift.getShift());
       System.out.println(white.getANSI() + "Decoded: " + blue.getANSI() + shift.decode());
       System.out.println(white.getANSI() + "Delimiter: " + blue.getANSI() + shift.getDelimiter());
       System.out.println();
 
       shift.setString(shift.decode());
       System.out.println(white.getANSI() + "String: " + blue.getANSI() + shift.getString());
+      System.out.println(white.getANSI() + "Shift: " + blue.getANSI() + shift.getShift());
       System.out.println(white.getANSI() + "Encoded: " + blue.getANSI() + shift.encode());
       System.out.println(white.getANSI() + "Delimiter: " + blue.getANSI() + shift.getDelimiter());
     } catch(UnsetValueException e) {
       System.out.println(white.getANSI() + "UnsetValueException: " + red.getANSI() + e);
     }
+  }
+  
+  public void unscrambleWords() {
+    
+  }
+
+  public void pngMorse() {
+    
   }
 }
