@@ -12,32 +12,21 @@ public class sbTest {
   String replacer;
   StringBuilder build;
 
-  public void create(String starter) {
+  public void create(String starter) { //Should I throw IndexOutOfBoundsException here?
     this.build = new StringBuilder();
     this.starter = starter;
 
     this.build.append(this.starter);
   }
 
-  public void replace(String replacer) {
+  public void replace(String replacer) throws StringIndexOutOfBoundsException {
     this.replacer = replacer;
-
-    try {
-      this.build.replace(this.starter.length(), this.starter.length()+this.replacer.length(), this.replacer);
-    } catch(Exception e) {
-      System.out.println("(Replacer) Exception: " + e);
-    }
+    this.build.replace(this.starter.length(), this.starter.length()+this.replacer.length(), this.replacer);
   }
 
-  public void insert(String inserter) {
+  public void insert(String inserter) throws StringIndexOutOfBoundsException {
     this.inserter = inserter;
-
-    try {
-      //System.out.println(this.starter.length() + ", " + this.inserter + ", " +  0 + ", " +  this.inserter.length());
-      this.build.insert(this.build.length(), this.inserter);
-    } catch(Exception e) {
-      System.out.println("(Inserter) Exception: " + e);
-    }
+    this.build.insert(this.build.length(), this.inserter);
   }
 
   public String toString() {
