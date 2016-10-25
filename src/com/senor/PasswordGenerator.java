@@ -12,7 +12,6 @@ public class PasswordGenerator {
   boolean lowercase = true;
   
   int digits;
-  int count = 0; //Temporary, will remove
 
   ArrayList<String> history = new ArrayList<String>();
   ArrayList<String> historyRange = new ArrayList<String>();
@@ -97,7 +96,6 @@ public class PasswordGenerator {
   }
 
   public String generatePassword() {
-    count++;
     double generatedNumber;
     this.password = "";
     this.random = new RandomGenerator(0,100);
