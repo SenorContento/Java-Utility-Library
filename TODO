@@ -1,0 +1,3 @@
+* Add PNGMorse
+  * Keep it as one project, do not split PNG and Morse (as PNG is not a full PNG reader/write and Morse is not that advanced to need it's own class)
+* Add Random Password Generator just like in the app
