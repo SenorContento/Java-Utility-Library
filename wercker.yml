@@ -43,23 +43,23 @@ deploy:
         code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
     - script:
         name: Create Tar
-        code: tar cfv binaries-v$(cat ../../../version).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(../../../version).tar ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
-        code: zip -j binaries-v$(cat ./version).zip ./src/utilities.jar ./sc-utility-jar.deb
+        code: zip -j binaries-v$(./version).zip ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Versioning
-        code: export APP_VERSION=$(cat ./version)
+        code: export APP_VERSION=$(./version)
     - github-create-release:
         token: $GITHUB_TOKEN
         tag: v$(echo $APP_VERSION)
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: binaries-v$(cat ./version).tar
+        file: binaries-v$(./version).tar
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: binaries-v$(cat ./version).zip
+        file: binaries-v$(./version).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
   nightly:
     - script:
@@ -70,23 +70,23 @@ deploy:
         code: export TIME=$(date +%s)
     - script:
         name: Create Tar
-        code: tar cfv binaries-v$(cat ../../../version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(../../../version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
-        code: zip -j binaries-v$(cat ./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
+        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Versioning
-        code: export APP_VERSION=$(cat ./version)
+        code: export APP_VERSION=$(./version)
     - github-create-release:
         token: $GITHUB_TOKEN
         tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: binaries-v$(cat ./version)-nightly$(echo $TIME).tar
+        file: binaries-v$(./version)-nightly$(echo $TIME).tar
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: binaries-v$(cat ./version)-nightly$(echo $TIME).zip
+        file: binaries-v$(./version)-nightly$(echo $TIME).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
 
   # notify slack on successful or failed deploys
