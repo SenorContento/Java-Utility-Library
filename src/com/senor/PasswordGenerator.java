@@ -80,7 +80,7 @@ public class PasswordGenerator {
   }
 
   public void setLowercase(boolean lowercase) {
-    this.numbers = numbers;
+    this.lowercase = lowercase;
   }
 
   public boolean getLowercase() {

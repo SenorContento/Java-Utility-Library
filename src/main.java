@@ -228,8 +228,25 @@ public class main {
   }
 
   public void pngMorse() {
-    PNGMorse pngMorse = new PNGMorse();
-    //pngMorse
+    Color red = Color.Light_Red;
+    Color white = Color.White;
+    Color yellow = Color.Yellow;
+    ArrayList<ArrayList<Integer>> readPixels = null;
+
+    try {
+      PNGMorse readPNGMorse = new PNGMorse();
+      readPNGMorse.setFile("read.png");
+      readPixels = readPNGMorse.readImage();
+      System.out.println(white.getANSI() + "Width: " + yellow.getANSI() + readPNGMorse.getWidth());
+      System.out.println(white.getANSI() + "Height: " + yellow.getANSI() + readPNGMorse.getHeight());
+      System.out.println();
+      System.out.println(white.getANSI() + "Morse: " + red.getANSI() + readPNGMorse.readMorseFromImage());
+      System.out.println(white.getANSI() + "ASCII: " + red.getANSI() + readPNGMorse.morseToASCII());
+    } catch(IOException e) {
+      System.out.println(red.getANSI() + "IOException: " + e);
+    } catch(InvalidInputException e) {
+      System.out.println(red.getANSI() + "InvalidInputException: " + e);
+    }
   }
 
   public void passwordGenerator() {
