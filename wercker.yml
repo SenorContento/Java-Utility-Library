@@ -42,11 +42,14 @@ deploy:
         name: Install Tools
         code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
     - script:
+        name: Move Jar for Tar Command
+        code: mv ./src/utilities.jar .
+    - script:
         name: Create Tar
-        code: tar cfv binaries-v$(./version).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(./version).tar ./utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
-        code: zip -j binaries-v$(./version).zip ./src/utilities.jar ./sc-utility-jar.deb
+        code: zip -j binaries-v$(./version).zip ./utilities.jar ./sc-utility-jar.deb
     - script:
         name: Versioning
         code: export APP_VERSION=$(./version)
@@ -69,11 +72,14 @@ deploy:
         name: Date Time Variable
         code: export TIME=$(date +%s)
     - script:
+        name: Move Jar for Tar Command
+        code: mv ./src/utilities.jar .
+    - script:
         name: Create Tar
-        code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar ./utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
-        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
+        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./utilities.jar ./sc-utility-jar.deb
     - script:
         name: Versioning
         code: export APP_VERSION=$(./version)
