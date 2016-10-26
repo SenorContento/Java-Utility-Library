@@ -237,21 +237,3 @@ public class PNGMorse {
     ArrayList<Integer> arrayWidth = null; //For Internal Array
   }*/
 }
-/*
-              morse0 = morse1;
-              morse1 = x+(y*maxX);
-              morse = morse + png.decToASCII(morse1-morse0);
-            } else {
-              whiteOffset = "(" + x + "," + y + ")";
-
-              morse1 = x+(y*maxX);
-              morse = "" + png.decToASCII(morse1);
-            }
-
-            System.out.print(NONE+"W");
-          } else {
-            System.out.println(LIGHT_BLUE+"RGB: " + pixelRGB);
-          }
-        }
-        System.out.println(); //For Forcing Newline
-*/
