@@ -6,7 +6,7 @@ build:
         code: apt-get update && apt-get install -y openjdk-7-jre-headless openjdk-7-jdk && rm -rf /var/lib/apt/lists/*
     - script:
         name: Compile and Jar Utilities
-        code: cd ./src/jar/ && javac -encoding ISO-8859-1 $(find | grep "\.java") && jar -cf ../utilities.jar $(find | grep "\.class")
+        code: cd ./src/jar/ && javac -encoding UTF-8 $(find | grep "\.java") && jar -cf ../utilities.jar $(find | grep "\.class")
     - script:
         name: Put into Debian Package
         code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
