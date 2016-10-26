@@ -43,7 +43,7 @@ deploy:
         code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
     - script:
         name: Create Tar
-        code: tar cfv binaries-v$(../../../version).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(./version).tar ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
         code: zip -j binaries-v$(./version).zip ./src/utilities.jar ./sc-utility-jar.deb
@@ -70,7 +70,7 @@ deploy:
         code: export TIME=$(date +%s)
     - script:
         name: Create Tar
-        code: tar cfv binaries-v$(../../../version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
+        code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Create Zip
         code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
