@@ -1,1 +1,90 @@
-I haven't created this file yet, but when I do, it will compile the utility library, export it into tar and zip packages, and even create a debian file for Package Cloud and then upload it to Package Cloud. For Nightlies, it will create a sc-utility-jar-dev package, while the master branch will create a normal sc-utility-jar package. It will also make the source code available to apt, so when one runs apt-get source sc-utility-jar or apt-get source sc-utility-jar-dev, then it will either pull from the master branch (probably for the latest master and not for latest version apt knows about) or the nightly branch.
+box: debian
+build:
+  steps:
+    - script:
+        name: Install Tools
+        code: apt-get update #&& apt-get install -y make nasm && rm -rf /var/lib/apt/lists/*
+    - script:
+        name: Compile and Jar Utilities
+        code: cd ./src/jar/ && javac $(find | grep "\.class") && jar -cf ../utilities.jar $(find | grep "\.class")
+    - script:
+        name: Put into Debian Package
+        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
+    - script:
+        name: Create MD5Sum
+        code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
+    - script:
+        name: Build Package
+        code: dpkg -b ./Utilities/ sc-utility-jar.deb
+    - script:
+        name: Install Package
+        code: dpkg -i sc-utility-jar.deb
+    - script:
+        name: Compile Demo
+        code: cd ./src/ && javac -cp ".:/usr/lib/senor/utilities.jar" main.java
+    - script:
+        name: Test Demo
+        code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main.java
+
+deploy:
+  #steps: #steps is to deploy when a branch that does not exist is called.
+  stable:
+    - script:
+        name: Install Tools
+        code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
+    - script:
+        name: Create Tar
+        code: tar cfv binaries-v$(../../../version).tar ./src/utilities.jar ./sc-utility-jar.deb
+    - script:
+        name: Create Zip
+        code: zip -j binaries-v$(./version).zip ./src/utilities.jar ./sc-utility-jar.deb
+    - script:
+        name: Versioning
+        code: export APP_VERSION=$(./version)
+    - github-create-release:
+        token: $GITHUB_TOKEN
+        tag: v$(echo $APP_VERSION)
+    - github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: binaries-v$(./version).tar
+        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    - github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: binaries-v$(./version).zip
+        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+  nightly:
+    - script:
+        name: Install Tools
+        code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
+    - script:
+        name: Date Time Variable
+        code: export TIME=$(date +%s)
+    - script:
+        name: Create Tar
+        code: tar cfv binaries-v$(../../../version)-nightly$(echo $TIME).tar ./src/utilities.jar ./sc-utility-jar.deb
+    - script:
+        name: Create Zip
+        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
+    - script:
+        name: Versioning
+        code: export APP_VERSION=$(./version)
+    - github-create-release:
+        token: $GITHUB_TOKEN
+        tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
+    - github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: binaries-v$(./version)-nightly$(echo $TIME).tar
+        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    - github-upload-asset:
+        token: $GITHUB_TOKEN
+        file: binaries-v$(./version)-nightly$(echo $TIME).zip
+        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+
+  # notify slack on successful or failed deploys
+  after-steps:
+    - slack-notifier:
+        url: $SLACK_URL
+        username: werckerbot
+
+#Still Working on Below
+#I haven't created this file yet, but when I do, it will compile the utility library, export it into tar and zip packages, and even create a debian file for Package Cloud and then upload it to Package Cloud. For Nightlies, it will create a sc-utility-jar-dev package, while the master branch will create a normal sc-utility-jar package. It will also make the source code available to apt, so when one runs apt-get source sc-utility-jar or apt-get source sc-utility-jar-dev, then it will either pull from the master branch (probably for the latest master and not for latest version apt knows about) or the nightly branch.
