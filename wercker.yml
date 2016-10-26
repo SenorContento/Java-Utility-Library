@@ -76,7 +76,7 @@ deploy:
         code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip ./src/utilities.jar ./sc-utility-jar.deb
     - script:
         name: Versioning
-        code: chmod +x ./version && export APP_VERSION=$(./version)
+        code: export APP_VERSION=$(echo ./version)
     - github-create-release:
         token: $GITHUB_TOKEN
         tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
