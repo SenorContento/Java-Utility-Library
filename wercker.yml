@@ -14,6 +14,9 @@ build:
         name: Compile and Jar Utilities
         code: cd ./src/jar/ && javac -encoding UTF-8 $(find | grep "\.java") && jar -cf ../utilities.jar $(find | grep "\.class")
     - script:
+        name: Create Needed Directories (as Git removes them for being empty)
+        code: mkdir -p ./Utilities/usr/lib/senor/
+    - script:
         name: Put into Debian Package
         code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
     - script:
