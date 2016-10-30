@@ -13,8 +13,12 @@ build:
     - script:
         name: Compile and Jar Utilities
         code: cd ./src/jar/ && javac -encoding UTF-8 $(find | grep "\.java") && jar -cf ../utilities.jar $(find | grep "\.class")
+
+
 deploy:
   #steps: #steps is to deploy when a branch that does not exist is called.
+
+
   stable:
     - script:
         name: Install Tools
@@ -22,15 +26,7 @@ deploy:
     - script:
         name: Move Jar for Tar Command
         code: mv ./src/utilities.jar .
-    - script:
-        name: Create Tar
-        code: tar cfv binaries-v$(./version).tar utilities.jar sc-utility-jar.deb
-    - script:
-        name: Create Zip
-        code: zip -j binaries-v$(./version).zip utilities.jar sc-utility-jar.deb
-    - script:
-        name: Versioning
-        code: export APP_VERSION=$(./version)
+
     - script:
         name: Create Needed Directories for DEBIAN (as Git removes them for being empty)
         code: mkdir -p ./Utilities/DEBIAN/
@@ -42,7 +38,7 @@ deploy:
         code: echo -e "Test" > ./Utilities/DEBIAN/control
     - script:
         name: Put into Debian Package
-        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
+        code: cp ./utilities.jar ./Utilities/usr/lib/senor/
     - script:
         name: Create MD5Sum
         code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
@@ -58,6 +54,17 @@ deploy:
     - script:
         name: Test Demo
         code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
+
+    - script:
+        name: Create Tar
+        code: tar cfv binaries-v$(./version).tar utilities.jar sc-utility-jar.deb
+    - script:
+        name: Create Zip
+        code: zip -j binaries-v$(./version).zip utilities.jar sc-utility-jar.deb
+    - script:
+        name: Versioning
+        code: export APP_VERSION=$(./version)
+
     - github-create-release:
         token: $GITHUB_TOKEN
         tag: v$(echo $APP_VERSION)
@@ -75,6 +82,8 @@ deploy:
     - script:
         name: Upload to Package Cloud
         code: package_cloud push SenorContento/Software/debian/jessie sc-utility-jar.deb
+
+
   nightly:
     - script:
         name: Install Tools
@@ -85,6 +94,7 @@ deploy:
     - script:
         name: Move Jar for Tar Command
         code: mv ./src/utilities.jar .
+
     - script:
         name: Create Needed Directories for DEBIAN (as Git removes them for being empty)
         code: mkdir -p ./Utilities/DEBIAN/
@@ -96,7 +106,7 @@ deploy:
         code: echo -e "Test" > ./Utilities/DEBIAN/control
     - script:
         name: Put into Debian Package
-        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
+        code: cp ./utilities.jar ./Utilities/usr/lib/senor/
     - script:
         name: Create MD5Sum
         code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
@@ -112,6 +122,7 @@ deploy:
     - script:
         name: Test Demo
         code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
+
     - script:
         name: Create Tar
         code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar utilities.jar sc-utility-jar.deb
