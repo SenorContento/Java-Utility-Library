@@ -86,15 +86,6 @@ deploy:
         name: Move Jar for Tar Command
         code: mv ./src/utilities.jar .
     - script:
-        name: Create Tar
-        code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar utilities.jar sc-utility-jar.deb
-    - script:
-        name: Create Zip
-        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip utilities.jar sc-utility-jar.deb
-    - script:
-        name: Versioning
-        code: export APP_VERSION=$(./version)
-    - script:
         name: Create Needed Directories for DEBIAN (as Git removes them for being empty)
         code: mkdir -p ./Utilities/DEBIAN/
     - script:
@@ -121,6 +112,15 @@ deploy:
     - script:
         name: Test Demo
         code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
+    - script:
+        name: Create Tar
+        code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar utilities.jar sc-utility-jar.deb
+    - script:
+        name: Create Zip
+        code: zip -j binaries-v$(./version)-nightly$(echo $TIME).zip utilities.jar sc-utility-jar.deb
+    - script:
+        name: Versioning
+        code: export APP_VERSION=$(./version)
     - github-create-release:
         token: $GITHUB_TOKEN
         pre_release: true
