@@ -102,7 +102,7 @@ deploy:
         code: mkdir -p ./Utilities/usr/lib/senor/
     - script:
         name: Create control file
-        code: echo -e "Package: sc-utility-jar\nVersion: $APP_VERSION-nightly$(echo $TIME)\nArchitecture: all\nEssential: no\nSection: development\nPriority: optional\nMaintainer: Brandon Gomez\nDescription: Brandon's Utility Library" > ./Utilities/DEBIAN/control
+        code: echo -e "Test" > ./Utilities/DEBIAN/control
     - script:
         name: Put into Debian Package
         code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
