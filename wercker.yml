@@ -37,28 +37,28 @@ deploy:
     # Create Control File
     - script:
         name: Write Package Name
-        code: echo 'Package: sc-utility-jar' > ./Utilities/DEBIAN/control
+        code: echo "Package: sc-utility-jar" > ./Utilities/DEBIAN/control
     - script:
         name: Add Version Number
-        code: echo 'Version: 0.0.1' >> ./Utilities/DEBIAN/control
+        code: echo "Version: 0.0.1" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Architecture
-        code: echo 'Architecture: all' >> ./Utilities/DEBIAN/control
+        code: echo "Architecture: all" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Essential Tag
-        code: echo 'Essential: no' >> ./Utilities/DEBIAN/control
+        code: echo "Essential: no" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Section
-        code: echo 'Section: development' >> ./Utilities/DEBIAN/control
+        code: echo "Section: development" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Priority Tag
-        code: echo 'Priority: optional' >> ./Utilities/DEBIAN/control
+        code: echo "Priority: optional" >> ./Utilities/DEBIAN/control
     - script:
         name: Add My Name
-        code: echo 'Maintainer: Brandon Gomez' >> ./Utilities/DEBIAN/control
+        code: echo "Maintainer: Brandon Gomez" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Description
-        code: echo 'Description: Brandon's Utility Library' >> ./Utilities/DEBIAN/control
+        code: echo "Description: Brandon's Utility Library" >> ./Utilities/DEBIAN/control
     # End Create Control File
 
     - script:
@@ -130,28 +130,28 @@ deploy:
     # Create Control File
     - script:
         name: Write Package Name
-        code: echo 'Package: sc-utility-jar' > ./Utilities/DEBIAN/control
+        code: echo "Package: sc-utility-jar" > ./Utilities/DEBIAN/control
     - script:
         name: Add Version Number
-        code: echo 'Version: 0.0.1' >> ./Utilities/DEBIAN/control
+        code: echo "Version: 0.0.1" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Architecture
-        code: echo 'Architecture: all' >> ./Utilities/DEBIAN/control
+        code: echo "Architecture: all" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Essential Tag
-        code: echo 'Essential: no' >> ./Utilities/DEBIAN/control
+        code: echo "Essential: no" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Section
-        code: echo 'Section: development' >> ./Utilities/DEBIAN/control
+        code: echo "Section: development" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Priority Tag
-        code: echo 'Priority: optional' >> ./Utilities/DEBIAN/control
+        code: echo "Priority: optional" >> ./Utilities/DEBIAN/control
     - script:
         name: Add My Name
-        code: echo 'Maintainer: Brandon Gomez' >> ./Utilities/DEBIAN/control
+        code: echo "Maintainer: Brandon Gomez" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Description
-        code: echo 'Description: Brandon's Utility Library' >> ./Utilities/DEBIAN/control
+        code: echo "Description: Brandon's Utility Library" >> ./Utilities/DEBIAN/control
     # End Create Control File
 
     - script:
