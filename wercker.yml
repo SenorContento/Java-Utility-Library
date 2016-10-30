@@ -13,28 +13,6 @@ build:
     - script:
         name: Compile and Jar Utilities
         code: cd ./src/jar/ && javac -encoding UTF-8 $(find | grep "\.java") && jar -cf ../utilities.jar $(find | grep "\.class")
-    - script:
-        name: Create Needed Directories (as Git removes them for being empty)
-        code: mkdir -p ./Utilities/usr/lib/senor/
-    - script:
-        name: Put into Debian Package
-        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
-    - script:
-        name: Create MD5Sum
-        code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
-    - script:
-        name: Build Package
-        code: dpkg -b ./Utilities/ sc-utility-jar.deb
-    - script:
-        name: Install Package
-        code: dpkg -i sc-utility-jar.deb
-    - script:
-        name: Compile Demo
-        code: cd ./src/ && javac -cp ".:/usr/lib/senor/utilities.jar" main.java
-    - script:
-        name: Test Demo
-        code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
-
 deploy:
   #steps: #steps is to deploy when a branch that does not exist is called.
   stable:
@@ -53,6 +31,33 @@ deploy:
     - script:
         name: Versioning
         code: export APP_VERSION=$(./version)
+    - script:
+        name: Create Needed Directories for DEBIAN (as Git removes them for being empty)
+        code: mkdir -p ./Utilities/DEBIAN/
+    - script:
+        name: Create Needed Directories (as Git removes them for being empty)
+        code: mkdir -p ./Utilities/usr/lib/senor/
+    - script:
+        name: Create control file
+        code: echo -e "Package: sc-utility-jar\nVersion: $APP_VERSION\nArchitecture: all\nEssential: no\nSection: development\nPriority: optional\nMaintainer: Brandon Gomez\nDescription: Brandon's Utility Library" > ./Utilities/DEBIAN/control
+    - script:
+        name: Put into Debian Package
+        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
+    - script:
+        name: Create MD5Sum
+        code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
+    - script:
+        name: Build Package
+        code: dpkg -b ./Utilities/ sc-utility-jar.deb
+    - script:
+        name: Install Package
+        code: dpkg -i sc-utility-jar.deb
+    - script:
+        name: Compile Demo
+        code: cd ./src/ && javac -cp ".:/usr/lib/senor/utilities.jar" main.java
+    - script:
+        name: Test Demo
+        code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
     - github-create-release:
         token: $GITHUB_TOKEN
         tag: v$(echo $APP_VERSION)
@@ -64,6 +69,12 @@ deploy:
         token: $GITHUB_TOKEN
         file: binaries-v$(./version).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    - script:
+        name: Install Package Cloud
+        code: gem install package_cloud
+    - script:
+        name: Upload to Package Cloud
+        code: package_cloud push SenorContento/Software/debian/jessie sc-utility-jar.deb
   nightly:
     - script:
         name: Install Tools
@@ -83,8 +94,36 @@ deploy:
     - script:
         name: Versioning
         code: export APP_VERSION=$(./version)
+    - script:
+        name: Create Needed Directories for DEBIAN (as Git removes them for being empty)
+        code: mkdir -p ./Utilities/DEBIAN/
+    - script:
+        name: Create Needed Directories (as Git removes them for being empty)
+        code: mkdir -p ./Utilities/usr/lib/senor/
+    - script:
+        name: Create control file
+        code: echo -e "Package: sc-utility-jar\nVersion: $APP_VERSION-nightly$(echo $TIME)\nArchitecture: all\nEssential: no\nSection: development\nPriority: optional\nMaintainer: Brandon Gomez\nDescription: Brandon's Utility Library" > ./Utilities/DEBIAN/control
+    - script:
+        name: Put into Debian Package
+        code: cp ./src/utilities.jar ./Utilities/usr/lib/senor/
+    - script:
+        name: Create MD5Sum
+        code: cd ./Utilities/ && find . -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DEBIAN.*' -printf '%P ' | xargs md5sum > DEBIAN/md5sums
+    - script:
+        name: Build Package
+        code: dpkg -b ./Utilities/ sc-utility-jar.deb
+    - script:
+        name: Install Package
+        code: dpkg -i sc-utility-jar.deb
+    - script:
+        name: Compile Demo
+        code: cd ./src/ && javac -cp ".:/usr/lib/senor/utilities.jar" main.java
+    - script:
+        name: Test Demo
+        code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
     - github-create-release:
         token: $GITHUB_TOKEN
+        pre_release: true
         tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
     - github-upload-asset:
         token: $GITHUB_TOKEN
@@ -94,6 +133,12 @@ deploy:
         token: $GITHUB_TOKEN
         file: binaries-v$(./version)-nightly$(echo $TIME).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    - script:
+        name: Install Package Cloud
+        code: gem install package_cloud
+    - script:
+        name: Upload to Package Cloud
+        code: package_cloud push SenorContento/Software-Nightly/debian/jessie sc-utility-jar.deb
 
   # notify slack on successful or failed deploys
   after-steps:
