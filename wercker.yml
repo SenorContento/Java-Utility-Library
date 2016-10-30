@@ -21,8 +21,14 @@ deploy:
 
   stable:
     - script:
+        name: Install Software Properties (To Add Repos - Only Works on Mainstream Distributions for Mainstream Only Repos - No Overrides)
+        code: apt-get update && apt-get install -y software-properties-common
+    - script:
+        name: Add Repo (with Jessie-Backports for OpenJDK-8)
+        code: apt-add-repository -s 'deb http://deb.debian.org/debian jessie-backports main'
+    - script:
         name: Install Tools
-        code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
+        code: apt-get update && apt-get install -y curl file zip openjdk-8-jre-headless openjdk-8-jdk && rm -rf /var/lib/apt/lists/*
     - script:
         name: Move Jar for Tar Command
         code: mv ./src/utilities.jar .
@@ -111,8 +117,14 @@ deploy:
 
   nightly:
     - script:
+        name: Install Software Properties (To Add Repos - Only Works on Mainstream Distributions for Mainstream Only Repos - No Overrides)
+        code: apt-get update && apt-get install -y software-properties-common
+    - script:
+        name: Add Repo (with Jessie-Backports for OpenJDK-8)
+        code: apt-add-repository -s 'deb http://deb.debian.org/debian jessie-backports main'
+    - script:
         name: Install Tools
-        code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
+        code: apt-get update && apt-get install -y curl file zip openjdk-8-jre-headless openjdk-8-jdk && rm -rf /var/lib/apt/lists/*
     - script:
         name: Date Time Variable
         code: export TIME=$(date +%s)
