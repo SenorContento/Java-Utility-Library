@@ -108,6 +108,9 @@ deploy:
         file: binaries-v$(./version).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
     - script:
+        name: Display Locales
+        code: locale
+    - script:
         name: Install Package Cloud
         code: gem install package_cloud
     - script:
@@ -206,6 +209,9 @@ deploy:
         token: $GITHUB_TOKEN
         file: binaries-v$(./version)-nightly$(echo $TIME).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    - script:
+        name: Display Locales
+        code: locale
     - script:
         name: Install Package Cloud
         code: gem install package_cloud
