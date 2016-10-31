@@ -107,9 +107,26 @@ deploy:
         token: $GITHUB_TOKEN
         file: binaries-v$(./version).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+
+    # Fixing Locales
     - script:
         name: Display Locales
         code: locale
+    - script:
+        name: Generate Locale
+        code: locale-gen --purge en_US.UTF-8
+    - script:
+        name: Reading Default Locale
+        code: cat /etc/default/locale
+    - script:
+        name: Setting Default Locale
+        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+    # End Fixing Locales
+
+    - script:
+        name: Testing UTF-8
+        code: perl -Mcharnames=:full -CS -wle 'print "\N{EURO SIGN}"'
+
     - script:
         name: Install Package Cloud
         code: gem install package_cloud
@@ -209,9 +226,26 @@ deploy:
         token: $GITHUB_TOKEN
         file: binaries-v$(./version)-nightly$(echo $TIME).zip
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+
+    # Fixing Locales
     - script:
         name: Display Locales
         code: locale
+    - script:
+        name: Generate Locale
+        code: locale-gen --purge en_US.UTF-8
+    - script:
+        name: Reading Default Locale
+        code: cat /etc/default/locale
+    - script:
+        name: Setting Default Locale
+        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+    # End Fixing Locales
+
+    - script:
+        name: Testing UTF-8
+        code: perl -Mcharnames=:full -CS -wle 'print "\N{EURO SIGN}"'
+
     - script:
         name: Install Package Cloud
         code: gem install package_cloud
