@@ -121,19 +121,26 @@ deploy:
     - script:
         name: Setting Default Locale
         code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+    - script:
+        name: Reading Default Locale (Again)
+        code: cat /etc/default/locale
+    - script:
+        name: Source Default Locale
+        code: . /etc/default/locale
     # End Fixing Locales
 
     - script:
         name: Testing UTF-8
         code: perl -Mcharnames=:full -CS -wle 'print "\N{EURO SIGN}"'
-
+    
+    # Push Newly Generated Deb to APT Repository
     - script:
         name: Install Package Cloud
         code: gem install package_cloud
     - script:
         name: Upload to Package Cloud
         code: package_cloud push SenorContento/Software/debian/jessie sc-utility-jar.deb
-
+    # End Push Newly Generated Deb to APT Repository
 
   nightly:
     - script:
@@ -240,18 +247,26 @@ deploy:
     - script:
         name: Setting Default Locale
         code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+    - script:
+        name: Reading Default Locale (Again)
+        code: cat /etc/default/locale
+    - script:
+        name: Source Default Locale
+        code: . /etc/default/locale
     # End Fixing Locales
 
     - script:
         name: Testing UTF-8
         code: perl -Mcharnames=:full -CS -wle 'print "\N{EURO SIGN}"'
 
+    # Push Newly Generated Deb to APT Repository
     - script:
         name: Install Package Cloud
         code: gem install package_cloud
     - script:
         name: Upload to Package Cloud
         code: package_cloud push SenorContento/Software-Nightly/debian/jessie sc-utility-jar.deb
+    # End Push Newly Generated Deb to APT Repository
 
   # notify slack on successful or failed deploys
   after-steps:
