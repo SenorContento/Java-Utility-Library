@@ -120,7 +120,7 @@ deploy:
         code: cat /etc/default/locale
     - script:
         name: Setting Default Locale
-        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US.UTF-8"\n' > /etc/default/locale
     - script:
         name: Reading Default Locale (Again)
         code: cat /etc/default/locale
@@ -246,7 +246,7 @@ deploy:
         code: cat /etc/default/locale
     - script:
         name: Setting Default Locale
-        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US:en"\n' > /etc/default/locale
+        code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US.UTF-8"\n' > /etc/default/locale
     - script:
         name: Reading Default Locale (Again)
         code: cat /etc/default/locale
