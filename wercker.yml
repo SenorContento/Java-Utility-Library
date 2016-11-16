@@ -151,7 +151,7 @@ deploy:
         code: apt-add-repository -s 'deb http://deb.debian.org/debian jessie-backports main'
     - script:
         name: Install Tools
-        code: apt-get update && apt-get install -y curl locales file zip openjdk-8-jre-headless openjdk-8-jdk ruby && rm -rf /var/lib/apt/lists/*
+        code: apt-get update && apt-get install -y curl locales libunicode-string-perl file zip openjdk-8-jre-headless openjdk-8-jdk ruby && rm -rf /var/lib/apt/lists/*
     - script:
         name: Date Time Variable
         code: export TIME=$(date +%s)
@@ -244,6 +244,15 @@ deploy:
     - script:
         name: Reading Default Locale
         code: cat /etc/default/locale
+    - script:
+        name: ???
+        code: sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+    - script:
+        name: Reconfigure Locales Package
+        code: dpkg-reconfigure --frontend=noninteractive locales
+    - script:
+        name: Updating Locale to Have en_US.UTF-8
+        code: update-locale LANG=en_US.UTF-8
     - script:
         name: Setting Default Locale
         code: echo -e 'LANG="en_US.UTF-8"\nLANGUAGE="en_US.UTF-8"\n' > /etc/default/locale
