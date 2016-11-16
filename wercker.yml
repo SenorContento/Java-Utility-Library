@@ -245,7 +245,7 @@ deploy:
         name: Reading Default Locale
         code: cat /etc/default/locale
     - script:
-        name: ???
+        name: Set Which Locale is Available
         code: sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
     - script:
         name: Reconfigure Locales Package
