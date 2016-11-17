@@ -170,9 +170,16 @@ deploy:
     - script:
         name: Write Package Name
         code: echo "Package:sc-utility-jar" > ./Utilities/DEBIAN/control
+
+    # Old Versioning System for Nightlies! No longer needed since only APT server gets nightlies now!
+    #  - script:
+    #      name: Add Version Number
+    #      code: echo "Version:$(./version)-nightly$(echo $TIME)" >> ./Utilities/DEBIAN/control
+
+    # This is just split to comment out old versioning system for nightlies!
     - script:
         name: Add Version Number
-        code: echo "Version:$(./version)-nightly$(echo $TIME)" >> ./Utilities/DEBIAN/control
+        code: echo "Version:$(./version)" >> ./Utilities/DEBIAN/control
     - script:
         name: Add Architecture
         code: echo "Architecture:all" >> ./Utilities/DEBIAN/control
@@ -212,6 +219,7 @@ deploy:
         name: Test Demo
         code: cd ./src/ && java -cp ".:/usr/lib/senor/utilities.jar" main
 
+    # This is mainly useless for now since Github releases are disabled for nightlies!
     - script:
         name: Create Tar
         code: tar cfv binaries-v$(./version)-nightly$(echo $TIME).tar utilities.jar sc-utility-jar.deb
@@ -221,18 +229,20 @@ deploy:
     - script:
         name: Versioning
         code: export APP_VERSION=$(./version)
-    - github-create-release:
-        token: $GITHUB_TOKEN
-        prerelease: true
-        tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
-    - github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: binaries-v$(./version)-nightly$(echo $TIME).tar
-        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
-    - github-upload-asset:
-        token: $GITHUB_TOKEN
-        file: binaries-v$(./version)-nightly$(echo $TIME).zip
-        release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    
+    # Decided to only allow nightly to be placed at https://packagecloud.io/SenorContento/Software-Nightly instead of Github!
+    # - github-create-release:
+    #     token: $GITHUB_TOKEN
+    #     prerelease: true
+    #     tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
+    # - github-upload-asset:
+    #     token: $GITHUB_TOKEN
+    #     file: binaries-v$(./version)-nightly$(echo $TIME).tar
+    #     release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
+    # - github-upload-asset:
+    #     token: $GITHUB_TOKEN
+    #     file: binaries-v$(./version)-nightly$(echo $TIME).zip
+    #     release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
 
     # Fixing Locales
     - script:
