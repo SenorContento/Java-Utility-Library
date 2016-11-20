@@ -6,7 +6,10 @@ Run the below commands (If you were looking to compile the .jar itself, go to Co
 Compiling Jar
 ---
 * javac $(find | grep "\.java")
-* jar cf utilities.jar $(find | grep "\.class")
+* cd jar
+  * jar cf utilities.jar $(find | grep "\.class")
+  * mv utilities.jar ..
+  * cd ..
 * To create Debian Repo, goto Creating Repo
 
 Creating Repo
