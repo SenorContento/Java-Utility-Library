@@ -171,15 +171,16 @@ deploy:
         name: Write Package Name
         code: echo "Package:sc-utility-jar" > ./Utilities/DEBIAN/control
 
-    # Old Versioning System for Nightlies! No longer needed since only APT server gets nightlies now!
-    #  - script:
-    #      name: Add Version Number
-    #      code: echo "Version:$(./version)-nightly$(echo $TIME)" >> ./Utilities/DEBIAN/control
+    # Current Versioning System for Nightlies! No longer needed since only APT server gets nightlies now!
+      - script:
+          name: Add Version Number
+          code: echo "Version:$(./version)-nightly$(echo $TIME)" >> ./Utilities/DEBIAN/control
 
-    # This is just split to comment out old versioning system for nightlies!
-    - script:
-        name: Add Version Number
-        code: echo "Version:$(./version)" >> ./Utilities/DEBIAN/control
+    # Broken - This is just split to comment out old versioning system for nightlies!
+    # - script:
+    #     name: Add Version Number
+    #     code: echo "Version:$(./version)" >> ./Utilities/DEBIAN/control
+
     - script:
         name: Add Architecture
         code: echo "Architecture:all" >> ./Utilities/DEBIAN/control
