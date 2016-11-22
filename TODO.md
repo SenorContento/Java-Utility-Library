@@ -7,6 +7,7 @@
 * Markdown Editor/Renderer
 * A character setter for the Password Generator for those sites that don't allow custom characters
   * Probably will use arraylist or arrays to do this one!
+  * Can do disallowed characters and allowed characters!
 
 # RSS Parser/Generator
 
