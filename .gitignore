@@ -1,2 +1,4 @@
 wordlist.txt
 .wercker
+utilities.jar
+\.class
